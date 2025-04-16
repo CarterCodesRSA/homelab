@@ -1,0 +1,4 @@
+- name: Restart Grafana
+  command: docker-compose restart
+  args:
+    chdir: /opt/docker/{{ ansible_role_name }}

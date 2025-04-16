@@ -1,0 +1,4 @@
+- name: Restart {{ ansible_role_name }}
+  command: docker-compose restart
+  args:
+    chdir: /opt/docker/uptime-kuma

@@ -1,0 +1,19 @@
+- Monitoring:
+    - Grafana:
+        href: https://grafana.opsnest.duckdns.org
+        widget:
+            type: grafana
+            url: http://192.168.50.173:3000
+            username: {{HOMEPAGE_VAR_GRAFANA_USERNAME}}
+            password: {{HOMEPAGE_VAR_GRAFANA_PASSWORD}}
+    - Prometheus:
+        href: https://prometheus.opsnest.duckdns.org
+        widget:
+            type: prometheus
+            url: http://192.168.50.173:9090
+    - UptimeKuma:
+        href: https://uptime.opsnest.duckdns.org
+        widget:
+            type: uptimekuma
+            url: http://192.168.50.173:3030
+            slug: home

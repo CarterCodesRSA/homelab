@@ -1,0 +1,4 @@
+- name: Restart Nginx Proxy Manager
+  command: docker-compose restart
+  args:
+    chdir: /opt/docker/nginx-proxy

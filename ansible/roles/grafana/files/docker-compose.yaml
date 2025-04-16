@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin  # Default admin password
+    ports:
+      - "3000:3000"  # Exposes Grafana UI on port 3000
+    volumes:
+      - /mnt/data/grafana:/var/lib/grafana  # Persists Grafana data on the host

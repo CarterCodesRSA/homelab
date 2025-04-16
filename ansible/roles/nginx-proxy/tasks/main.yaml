@@ -1,0 +1,17 @@
+---
+- name: Ensure /opt/docker/nginx-proxy directory exists
+  file:
+    path: /opt/docker/nginx-proxy
+    state: directory
+    mode: '0755'
+
+- name: Copy docker-compose.yaml for Nginx Proxy from role files
+  copy:
+    src: docker-compose.yaml
+    dest: /opt/docker/nginx-proxy/docker-compose.yaml
+  notify: Restart Nginx Proxy
+
+- name: Start Nginx Proxy with Docker Compose
+  command: docker-compose up -d
+  args:
+    chdir: /opt/docker/nginx-proxy

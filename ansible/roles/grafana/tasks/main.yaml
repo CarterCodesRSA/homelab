@@ -1,0 +1,24 @@
+---
+- name: Ensure /opt/docker/grafana directory exists
+  file:
+    path: /opt/docker/grafana
+    state: directory
+    mode: '0755'
+  
+- name: Ensure grafana data directory exists
+  file:
+    path: /mnt/data/grafana
+    state: directory
+    owner: 472
+    group: 472
+    mode: '0755'
+
+- name: Copy docker-compose.yaml for grafana from role files
+  copy:
+    src: docker-compose.yaml
+    dest: /opt/docker/grafana/docker-compose.yaml
+
+- name: Start grafana with Docker Compose
+  command: docker-compose up -d
+  args:
+    chdir: /opt/docker/grafana

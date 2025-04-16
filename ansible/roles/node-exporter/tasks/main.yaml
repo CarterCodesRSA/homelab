@@ -1,0 +1,16 @@
+---
+- name: Ensure /opt/docker/node-exporter directory exists
+  file:
+    path: /opt/docker/node-exporter
+    state: directory
+    mode: '0755'
+  
+- name: Copy docker-compose.yaml for node-exporter from role files
+  copy:
+    src: docker-compose.yaml
+    dest: /opt/docker/node-exporter/docker-compose.yaml
+
+- name: Start node-exporter with Docker Compose
+  command: docker-compose up -d
+  args:
+    chdir: /opt/docker/node-exporter

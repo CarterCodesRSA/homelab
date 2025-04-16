@@ -1,0 +1,31 @@
+---
+- name: Ensure /opt/docker/{{ ansible_role_name }} directory exists
+  file:
+    path: /opt/docker/{{ ansible_role_name }}
+    state: directory
+    mode: '0755'
+
+- name: Ensure /mnt/data/{{ ansible_role_name }} directory exists
+  file:
+    path: /mnt/data/{{ ansible_role_name }}
+    state: directory
+    owner: '0755'
+
+- name: Copy docker-compose.yml for {{ ansible_role_name }} from role files
+  copy:
+    src: docker-compose.yml
+    dest: /opt/docker/{{ ansible_role_name }}/docker-compose.yml
+  notify: Restart {{ ansible_role_name }}
+
+- name: Check if the npm Docker network exists
+  command: docker network ls --format '{{ "{{" }}.Name{{ "}}" }}'
+  register: docker_networks
+
+- name: Create external Docker network if it does not exist
+  command: docker network create npm
+  when: "'npm' not in docker_networks.stdout_lines"
+
+- name: Start {{ ansible_role_name }} with Docker Compose
+  command: docker compose up -d
+  args:
+    chdir: /opt/docker/{{ ansible_role_name }}

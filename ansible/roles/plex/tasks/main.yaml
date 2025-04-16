@@ -1,0 +1,46 @@
+---
+- name: Ensure Plex docker directory exists
+  file:
+    path: /opt/docker/plex
+    state: directory
+    mode: '0755'
+
+- name: Ensure Plex config directory exists
+  file:
+    path: /mnt/data/plex/config
+    state: directory
+    mode: '0755'
+
+- name: Ensure Plex transcode directory exists
+  file:
+    path: /mnt/data/plex/transcode
+    state: directory
+    mode: '0755'
+
+- name: Ensure Plex media directory exists
+  file:
+    path: /mnt/data/plex/media
+    state: directory
+    mode: '0755'
+
+- name: Ensure Plex movies directory exists
+  file:
+    path: /mnt/data/plex/media/movies
+    state: directory
+    mode: '0755'
+
+- name: Ensure Plex series directory exists
+  file:
+    path: /mnt/data/plex/media/series
+    state: directory
+    mode: '0755'
+
+- name: Copy docker-compose.yml for plex from role files
+  copy:
+    src: files/docker/
+    dest: /opt/docker/plex/
+
+- name: Start plex with Docker Compose
+  command: docker-compose up -d
+  args:
+    chdir: /opt/docker/plex

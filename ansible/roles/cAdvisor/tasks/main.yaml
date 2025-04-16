@@ -1,0 +1,16 @@
+---
+- name: Ensure /opt/docker/{{ ansible_role_name }} directory exists
+  file:
+    path: /opt/docker/{{ ansible_role_name }}
+    state: directory
+    mode: '0755'
+  
+- name: Copy docker-compose.yaml for {{ ansible_role_name }} from role files
+  copy:
+    src: docker-compose.yaml
+    dest: /opt/docker/{{ ansible_role_name }}/docker-compose.yaml
+
+- name: Start {{ ansible_role_name }} with Docker Compose
+  command: docker-compose up -d
+  args:
+    chdir: /opt/docker/{{ ansible_role_name }}

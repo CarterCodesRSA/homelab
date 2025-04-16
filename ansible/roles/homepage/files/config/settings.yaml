@@ -1,0 +1,10 @@
+title: OpsNest
+description: The home of all things OpsNest
+background: 
+  image: /images/back.jpg
+  blur: sm
+  saturate: 50 
+  brightness: 50
+  opacity: 50
+cardBlur: xs
+theme: dark

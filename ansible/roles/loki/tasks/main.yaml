@@ -1,0 +1,34 @@
+---
+- name: Ensure /opt/docker/loki directory exists
+  file:
+    path: /opt/docker/loki
+    state: directory
+    mode: '0755'
+  
+- name: Ensure loki data directory exists
+  file:
+    path: /mnt/data/loki
+    state: directory
+    owner: 65534 
+    group: 65534
+    mode: '0755'
+
+- name: Copy docker-compose.yaml
+  copy:
+    src: docker-compose.yaml
+    dest: /opt/docker/loki/docker-compose.yaml
+
+- name: Copy loki-config.yaml
+  copy:
+    src: loki-config.yaml
+    dest: /opt/docker/loki/loki-config.yaml
+  
+- name: Copy promtail-config.yaml
+  copy:
+    src: promtail-config.yaml
+    dest: /opt/docker/loki/promtail-config.yaml
+  
+- name: Start loki with Docker Compose
+  command: docker-compose up -d
+  args:
+    chdir: /opt/docker/loki

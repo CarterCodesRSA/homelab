@@ -1,0 +1,27 @@
+---
+- name: Ensure /opt/docker/{{ ansible_role_name }} directory exists
+  file:
+    path: /opt/docker/{{ ansible_role_name }}
+    state: directory
+    mode: '0755'
+  
+- name: Copy docker files
+  copy:
+    src: files/docker/
+    dest: /opt/docker/{{ ansible_role_name }}/
+
+- name: Copy config files
+  copy:
+    src: files/config/
+    dest: /opt/docker/{{ ansible_role_name }}/config/
+
+- name: Copy image files
+  copy:
+    src: files/images/
+    dest: /opt/docker/{{ ansible_role_name }}/images/
+  notify: Restart {{ ansible_role_name }}
+
+- name: Start {{ ansible_role_name }} with Docker Compose
+  command: docker-compose up -d --force-recreate
+  args:
+    chdir: /opt/docker/{{ ansible_role_name }}

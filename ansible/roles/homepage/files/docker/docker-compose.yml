@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    ports:
+      - 3001:3000
+    volumes:
+      - /opt/docker/homepage/config:/app/config 
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /opt/docker/homepage/images:/app/public/images
+    environment:
+      HOMEPAGE_ALLOWED_HOSTS: opsnest.duckdns.org
+      HOMEPAGE_VAR_GRAFANA_USERNAME: $HOMEPAGE_VAR_GRAFANA_USERNAME
+      HOMEPAGE_VAR_GRAFANA_PASSWORD: $HOMEPAGE_VAR_GRAFANA_PASSWORD

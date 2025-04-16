@@ -1,0 +1,36 @@
+- name: Create clickhouse group
+  group:
+    name: clickhouse
+    state: present
+
+- name: Create clickhouse user
+  user:
+    name: clickhouse
+    shell: /usr/sbin/nologin
+    groups: clickhouse
+    append: yes
+
+- name: Create ext4 filesystem on /dev/nvme1n1
+  community.general.filesystem:
+    fstype: ext4
+    dev: /dev/nvme1n1
+
+- name: Create /var/lib/clickhouse directory
+  file:
+    path: /var/lib/clickhouse
+    state: directory
+    owner: clickhouse
+    group: clickhouse
+
+- name: Mount /dev/nvme1n1 to /var/lib/clickhouse
+  mount:
+    path: /var/lib/clickhouse
+    src: /dev/nvme1n1
+    fstype: ext4
+    state: mounted
+
+- name: Add /dev/nvme1n1 to /etc/fstab
+  lineinfile:
+    path: /etc/fstab
+    line: "/dev/nvme1n1 /var/lib/clickhouse ext4 rw,noatime 0 2"
+    state: present

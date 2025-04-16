@@ -1,0 +1,30 @@
+---
+- name: Ensure /opt/docker/prometheus directory exists
+  file:
+    path: /opt/docker/prometheus
+    state: directory
+    mode: '0755'
+  
+- name: Ensure Prometheus data directory exists
+  file:
+    path: /mnt/data/prometheus
+    state: directory
+    owner: 65534 
+    group: 65534
+    mode: '0755'
+
+- name: Copy docker-compose.yaml for Prometheus from role files
+  copy:
+    src: docker-compose.yaml
+    dest: /opt/docker/prometheus/docker-compose.yaml
+
+- name: Cope prometheus.yaml for Prometheus from role files
+  copy:
+    src: prometheus.yaml
+    dest: /opt/docker/prometheus/prometheus.yml
+  notify: Restart Prometheus
+
+- name: Start Prometheus with Docker Compose
+  command: docker-compose up -d
+  args:
+    chdir: /opt/docker/prometheus

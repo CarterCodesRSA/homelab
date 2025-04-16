@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  plex:
+    image: plexinc/pms-docker:latest
+    container_name: plex
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - /mnt/data/plex/config:/config
+      - /mnt/data/plex/transcode:/transcode
+      - /mnt/data/plex/media:/data
