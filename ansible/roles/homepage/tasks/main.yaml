@@ -19,9 +19,13 @@
   copy:
     src: files/images/
     dest: /opt/docker/{{ ansible_role_name }}/images/
-  notify: Restart {{ ansible_role_name }}
 
-- name: Start {{ ansible_role_name }} with Docker Compose
-  command: docker-compose up -d --force-recreate
+- name: Restart {{ ansible_role_name }}
+  command: docker compose down
+  args:
+    chdir: /opt/docker/{{ ansible_role_name }}
+
+- name: Restart {{ ansible_role_name }}
+  command: docker compose up -d
   args:
     chdir: /opt/docker/{{ ansible_role_name }}

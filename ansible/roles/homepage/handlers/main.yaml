@@ -1,4 +1,4 @@
 - name: Restart {{ ansible_role_name }}
-  command: docker-compose restart
+  command: docker-compose down && docker-compose up -d
   args:
     chdir: /opt/docker/{{ ansible_role_name }}

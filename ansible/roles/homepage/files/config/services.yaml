@@ -1,5 +1,14 @@
+- Media:
+    - Plex:
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/plex-light.svg
+        href: https://plex.opsnest.duckdns.org
+        widget:
+            type: plex
+            url: http://192.168.50.173:32400
+            key: {{HOMEPAGE_VAR_PLEX_TOKEN}}
 - Monitoring:
     - Grafana:
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/grafana.svg
         href: https://grafana.opsnest.duckdns.org
         widget:
             type: grafana
@@ -7,11 +16,13 @@
             username: {{HOMEPAGE_VAR_GRAFANA_USERNAME}}
             password: {{HOMEPAGE_VAR_GRAFANA_PASSWORD}}
     - Prometheus:
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/prometheus.svg
         href: https://prometheus.opsnest.duckdns.org
         widget:
             type: prometheus
             url: http://192.168.50.173:9090
     - UptimeKuma:
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/uptime-kuma.svg
         href: https://uptime.opsnest.duckdns.org
         widget:
             type: uptimekuma

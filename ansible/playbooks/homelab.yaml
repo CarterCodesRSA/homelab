@@ -14,5 +14,6 @@
     - role: cAdvisor
     - role: loki
     - role: homepage
+      tags: home
     - role: plex
       tags: plex
